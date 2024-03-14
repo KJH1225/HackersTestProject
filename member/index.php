@@ -21,9 +21,11 @@
 				include $file;
 			} else {
 				//메인 팅기기
+				echo "<script>window.location.href = '/index.php';</script>";
+				exit;
 			}
 			//파일체크 o
-			//모드 없으면 메인으로 x
+			//모드 없으면 메인으로 d
 			//헤드도 따로 파일 뺴기 o
 			//회원정보수정에서 인풋칸 보고 컬럼정하기 o
 		include "../include/Footer.php";	

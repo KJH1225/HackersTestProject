@@ -359,9 +359,9 @@ https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.j
 				});
 				const data = await res.json();
 				console.log("resJSON: ", data);
-				if (data.status) {
+				if (data.status) { //회원가입 성공! 리다이렉션
 					document.location.href=data.url;
-				} else {
+				} else { //가입 실패 알람
 					alert(data.message);
 				}
 			} catch (error) {
