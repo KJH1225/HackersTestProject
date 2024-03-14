@@ -66,6 +66,7 @@
 					$validateResult["status"] = false;
 					$validateResult['message'] = "유효성검사 실패";
 					$validateResult['falsePattern'] = $pattern;
+					$validateResult['falsekey'] = $key;
 					$validateResult['falseValue'] = $value;
 					return $validateResult;
  			} 
@@ -97,6 +98,7 @@
       }else{
         $result['status'] = true;
         $result['message'] = "가입성공";
+        $result['url'] = "/member/index.php?mode=complete";
       }
 
       mysqli_close($connect); // db 연결 종료

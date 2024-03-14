@@ -15,6 +15,7 @@
 			} 
 			$result['status'] = true;
 			$result['message'] = "인증 성공!";
+			$result['url'] = "/member/index.php?mode=step_03";
 		}
 
     $convertJSON = json_encode($result);

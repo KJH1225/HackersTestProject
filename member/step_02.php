@@ -73,14 +73,15 @@
 			url: "../sign/checkAuthNum.php", // 클라이언트가 요청을 보낼 서버의 URL 주소
 			data: { 
 				inputAuthNum: $("#inputAuthNum").val(), 
-			},                // HTTP 요청과 함께 서버로 보낼 데이터
+			},                // HTTP 요청과 함께 서버로 보낼 데이터a1004902
 			type: "POST",                             // HTTP 요청 방식(GET, POST)
 			dataType: "json"                         // 서버에서 보내줄 데이터의 타입
 		}).done( (res) => {
 			console.log("res: ", res);
 			alert(res.message);
 			if (res.status) {
-				document.location.href='/member/index.php?mode=step_03';
+				document.location.href=res.url;
+				// document.location.href='/member/index.php?mode=step_03';
 			}
 		})
 	}

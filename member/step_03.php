@@ -161,17 +161,19 @@ https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.j
 	const checkId = async () => { // id 중복 확인 함수
 		try {
 			if (!$("#inputId").val()) {
+				alert('아이디를 입력해주세요');
 				return;
 			}
 
 			const res = await fetch('../sign/checkId.php', {
 				method: 'POST',
 				body: JSON.stringify({id: $("#inputId").val()}),
-				// body: {userId: $("#inputId").val()}
 			})
-			// console.log(res.json());
 			const data = await res.json();
-			idCheck = true;
+
+			if(data.status){
+				idCheck = true;
+			}
 			console.log(data);
 			alert(data.message);
 		} catch (error) {
@@ -354,14 +356,17 @@ https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.j
 						"Content-Type": "application/json; charset=UTF-8",
 					},
 					body: JSON.stringify(returnArray),
-				})
+				});
 				const data = await res.json();
 				console.log("resJSON: ", data);
+				if (data.status) {
+					document.location.href=data.url;
+				} else {
+					alert(data.message);
+				}
 			} catch (error) {
 				console.log("에러: ", error); 
 			}
-
-			// return false;
 		}
 	});
 </script>

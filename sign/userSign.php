@@ -28,10 +28,12 @@
 			"smsStatus" => $decodedData['smsRadio'],
 			"mailStatus" => $decodedData['mailRadio'],
 		);
+
 		$result = userSign($userData);
+
 	}else {
 		$result['status'] = false;
-		$result['message'] = "유효성검사 or ID중복검사 실패";
+		$result['message'] = '유효하지 않은 값이 있습니다.';
 	}
 
 	$convertJSON = json_encode($result);
