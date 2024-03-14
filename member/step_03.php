@@ -102,11 +102,11 @@ https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.j
 										<td>
 											<div class="box-input">
 												<label class="input-sp">
-													<input type="radio" name="smsRadio" value="true" checked="checked"/>
+													<input type="radio" name="smsRadio" value="1" checked="checked"/>
 													<span class="input-txt">수신함</span>
 												</label>
 												<label class="input-sp">
-													<input type="radio" name="smsRadio" value="false"/>
+													<input type="radio" name="smsRadio" value="0"/>
 													<span class="input-txt">미수신</span>
 												</label>
 											</div>
@@ -118,11 +118,11 @@ https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.j
 										<td>
 											<div class="box-input">
 												<label class="input-sp">
-													<input type="radio" name="mailRadio" value="true" checked="checked"/>
+													<input type="radio" name="mailRadio" value="1" checked="checked"/>
 													<span class="input-txt">수신함</span>
 												</label>
 												<label class="input-sp">
-													<input type="radio" name="mailRadio" value="false" />
+													<input type="radio" name="mailRadio" value="0" />
 													<span class="input-txt">미수신</span>
 												</label>
 											</div>

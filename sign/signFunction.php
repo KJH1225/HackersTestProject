@@ -48,8 +48,8 @@
 			"postCode" => "/(\d{3}-\d{3}|\d{5})/",
 			"address" => "/[가-힣0-9\s]$/", // *사용해서 빈값도 ok
 			"detailAddress" => "/[가-힣0-9\s]$/",
-			"smsRadio" => "/^(true|false)$/",
-			"mailRadio" => "/^(true|false)$/",
+			"smsRadio" => "/^(1|0)$/",
+			"mailRadio" => "/^(1|0)$/",
         // 여러 다른 유효성 검사 추가
     );
 
@@ -76,7 +76,7 @@
 		return $validateResult;
 	}
 
-  function userSign($data) { //유효성검사
+  function userSign($userData) { //회원가입
 		$result = array();
 
     require $_SERVER['DOCUMENT_ROOT'].'/db/dbConnect.php';
@@ -86,17 +86,17 @@
       $result['message'] = "db연결 실패";
 
     }else { //db 연결성공
-      $idCheckQuery = "SELECT userId FROM users WHERE userId = '".$id."'"; // 입력한 id랑 같은 id 조회
-      $queryResult = mysqli_query($connect, $idCheckQuery); // 쿼리 실행
-      $numRow = mysqli_num_rows($queryResult); //조회한 행의 개수 
+      $strQuery = "INSERT INTO `users` (`userName`, `userId`, `userPassword`, `salt`, `mailFirst`, `mailLast`, `firstPhoneNum`, `middelePhoneNum`, `lastPhoneNum`, `firstTelNum`, `middeleTelNum`, `lastTelNum`, `postCode`, `address`, `detailAddress`, `smsStatus`, `mailStatus`)"; 
+		  $strQuery = $strQuery."VALUES ('".$userData["userName"]."', '".$userData["userId"]."', '".$userData["salt"]."', '".$userData["userPassword"]."', '".$userData["mailFirst"]."', '".$userData["mailLast"]."', '".$userData["firstPhoneNum"]."', '".$userData["middelePhoneNum"]."', '".$userData["lastPhoneNum"]."', '".$userData["firstTelNum"]."', '".$userData["middeleTelNum"]."', '".$userData["lastTelNum"]."', '".$userData["postCode"]."', '".$userData["address"]."', '".$userData["detailAddress"]."', '".$userData["smsStatus"]."', '".$userData["mailStatus"]."')";
+      $queryResult = mysqli_query($connect, $strQuery); // 쿼리 실행
 
-      if($numRow > 0){ // 같은 id 있음
-        // $result = '이미 사용중인 id 입니다';
+      if($queryResult === false){
         $result['status'] = false;
-        $result['message'] = "이미 사용중인 id 입니다.";
-      }else{ //같은 id 없음
+        $result['message'] = "가입실패";
+        $result['error'] = mysqli_error($connect);
+      }else{
         $result['status'] = true;
-        $result['message'] = "사용 가능한 id 입니다.";
+        $result['message'] = "가입성공";
       }
 
       mysqli_close($connect); // db 연결 종료

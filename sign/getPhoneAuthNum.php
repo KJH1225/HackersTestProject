@@ -7,5 +7,5 @@
     $_SESSION['middelePhoneNum'] = $_POST['middelePhoneNum'];
     $_SESSION['lastPhoneNum'] = $_POST['lastPhoneNum'];
 
-    echo "인증번호를 입력해주세요!".$_SESSION['firstPhoneNum'];
+    echo "인증번호를 입력해주세요!";
 ?>

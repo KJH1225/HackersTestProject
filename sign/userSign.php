@@ -2,12 +2,12 @@
 	require $_SERVER['DOCUMENT_ROOT'].'/sign/signFunction.php';
 	$jsonData = file_get_contents('php://input');
   $decodedData  = json_decode($jsonData, true);
+	$result = array();
 	
 	$checkIdResult = checkId($decodedData['id']); //id 중복검사
 	$validateResult = validateData($decodedData); //유효성검사
 	if($checkIdResult['status'] && $validateResult['status']) {  // 둘다 통과하면
 		//회원가입 
-		// userSign($decodedData);
 		$salt = bin2hex(random_bytes(32));
 		$userData = array(
 			"userName" => $decodedData['name'],
@@ -28,10 +28,12 @@
 			"smsStatus" => $decodedData['smsRadio'],
 			"mailStatus" => $decodedData['mailRadio'],
 		);
+		$result = userSign($userData);
+	}else {
+		$result['status'] = false;
+		$result['message'] = "유효성검사 or ID중복검사 실패";
 	}
 
-
-
-	$convertJSON = json_encode($userData);
+	$convertJSON = json_encode($result);
   echo $convertJSON;
 ?>

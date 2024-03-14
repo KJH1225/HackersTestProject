@@ -1,9 +1,3 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
-<!--[if (IE 7)]><html class="no-js ie7" xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko"><![endif]-->
-<!--[if (IE 8)]><html class="no-js ie8" xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko"><![endif]-->
-<head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" id="X-UA-Compatible" content="IE=EmulateIE8" />
 <title>해커스 HRD</title>
@@ -30,51 +24,3 @@
 <script type="text/javascript" src="http://q.hackershrd.com/worksheet/js/plugins/bxslider/bxslider.js"></script>
 <script type="text/javascript" src="http://q.hackershrd.com/worksheet/js/ui.js"></script>
 <!--[if lte IE 9]> <script src="/js/common/place_holder.js"></script> <![endif]-->
-
-</head><body>
-<!-- skip nav -->
-<div id="skip-nav">
-<a href="#content">본문 바로가기</a>
-</div>
-<!-- //skip nav -->
-
-<div id="wrap">
-	<?php include 'include/Header.php'; ?>
-<div id="container" class="container-full">
-	<div id="content" class="content">
-		<div class="inner">
-			<div class="tit-box-h3">
-				<h3 class="tit-h3">아이디/비밀번호 찾기</h3>
-				<div class="sub-depth">
-					<span><i class="icon-home"><span>홈</span></i></span>
-					<strong>아이디/비밀번호 찾기</strong>
-				</div>
-			</div>
-
-			<ul class="tab-list">
-				<li class="on"><a href="#">아이디 찾기</a></li>
-				<li><a href="#">비밀번호 찾기</a></li>
-			</ul>
-
-			<div class="tit-box-h4">
-				<h3 class="tit-h4">아이디 조회결과</h3>
-			</div>
-
-			<div class="guide-box">
-				<p class="fs16 mb5">이진아 회원님의 아이디는 아래와 같습니다.</p>
-				<strong class="big-title tc-brand">rreamon7</strong>
-			</div>
-
-			<div class="box-btn mt30">
-				<a href="#" class="btn-l">로그인하러 가기</a>
-				<a href="#" class="btn-l-line ml5">비밀번호 찾기</a>
-			</div>
-
-		</div>
-	</div>
-</div>
-
-<?php include 'include/Footer.php'; ?>
-</div>
-</body>
-</html>
