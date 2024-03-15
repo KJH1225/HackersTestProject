@@ -12,10 +12,11 @@
 			if($_SESSION['authCode'] !== $inputAuthNum) { //입력한 번호랑 세션의 인증번호가 다름
 				$result['status'] = false;
 				$result['message'] = "인증 번호가 틀렸습니다!";
-			} 
-			$result['status'] = true;
-			$result['message'] = "인증 성공!";
-			$result['url'] = "/member/index.php?mode=step_03";
+			} else {
+				$result['status'] = true;
+				$result['message'] = "인증 성공!";
+				$result['url'] = "/member/index.php?mode=step_03";
+			}
 		}
 
     $convertJSON = json_encode($result);

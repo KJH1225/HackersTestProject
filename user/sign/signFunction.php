@@ -88,7 +88,7 @@
 
     }else { //db 연결성공
       $strQuery = "INSERT INTO `users` (`userName`, `userId`, `userPassword`, `salt`, `mailFirst`, `mailLast`, `firstPhoneNum`, `middelePhoneNum`, `lastPhoneNum`, `firstTelNum`, `middeleTelNum`, `lastTelNum`, `postCode`, `address`, `detailAddress`, `smsStatus`, `mailStatus`)"; 
-		  $strQuery = $strQuery."VALUES ('".$userData["userName"]."', '".$userData["userId"]."', '".$userData["salt"]."', '".$userData["userPassword"]."', '".$userData["mailFirst"]."', '".$userData["mailLast"]."', '".$userData["firstPhoneNum"]."', '".$userData["middelePhoneNum"]."', '".$userData["lastPhoneNum"]."', '".$userData["firstTelNum"]."', '".$userData["middeleTelNum"]."', '".$userData["lastTelNum"]."', '".$userData["postCode"]."', '".$userData["address"]."', '".$userData["detailAddress"]."', '".$userData["smsStatus"]."', '".$userData["mailStatus"]."')";
+		  $strQuery = $strQuery."VALUES ('".$userData["userName"]."', '".$userData["userId"]."', '".$userData["userPassword"]."', '".$userData["salt"]."', '".$userData["mailFirst"]."', '".$userData["mailLast"]."', '".$userData["firstPhoneNum"]."', '".$userData["middelePhoneNum"]."', '".$userData["lastPhoneNum"]."', '".$userData["firstTelNum"]."', '".$userData["middeleTelNum"]."', '".$userData["lastTelNum"]."', '".$userData["postCode"]."', '".$userData["address"]."', '".$userData["detailAddress"]."', '".$userData["smsStatus"]."', '".$userData["mailStatus"]."')";
       $queryResult = mysqli_query($connect, $strQuery); // 쿼리 실행
 
       if($queryResult === false){

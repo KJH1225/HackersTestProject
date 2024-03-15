@@ -11,8 +11,8 @@
 					</div>
 
 					<ul class="tab-list">
-						<li class="on"><a href="#">아이디 찾기</a></li>
-						<li><a href="#">비밀번호 찾기</a></li>
+						<li class="on"><a href="/member/index.php?mode=find_id">아이디 찾기</a></li>
+						<li><a href="/member/index.php?mode=find_pass">비밀번호 찾기</a></li>
 					</ul>
 
 					<div class="tit-box-h4">
@@ -20,16 +20,25 @@
 					</div>
 
 					<div class="guide-box">
-						<p class="fs16 mb5">이진아 회원님의 아이디는 아래와 같습니다.</p>
-						<strong class="big-title tc-brand">rreamon7</strong>
+						<p class="fs16 mb5"></p>회원님의 아이디는 아래와 같습니다.</p>
+						<strong class="big-title tc-brand" id="idValue"></strong>
 					</div>
 
 					<div class="box-btn mt30">
-						<a href="#" class="btn-l">로그인하러 가기</a>
-						<a href="#" class="btn-l-line ml5">비밀번호 찾기</a>
+						<a href="/member/login.php" class="btn-l">로그인하러 가기</a>
+						<a href="/member/index.php?mode=find_pass" class="btn-l-line ml5">비밀번호 찾기</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
+	<script>
+		$(document).ready(
+			function () { //생년월일 select태그에 옵션추가
+				const queryParams = new URLSearchParams(window.location.search);
+				const id = queryParams.get('id');
+				$('#idValue').text(id);
+			}
+		);
+	</script>

@@ -1,9 +1,7 @@
-
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="
 https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.js
 "></script>
-
 
 	<div id="wrap">
 		<div id="container" class="container-full">
@@ -59,7 +57,7 @@ https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.j
 											<input type="text" class="input-text" name="mailFirst" style="width:138px"/> 
 											@ 
 											<input type="text" class="input-text" id="mailLast" name="mailLast" style="width:138px"/>
-											<select class="input-sel" id="mailSelect" style="width:160px">
+											<select class="input-sel" id="mailSelect" style="width:160px" onchange="$('#mailLast').val($(this).val())">
 												<option value="">직접입력</option>
 												<option value="naver.com">naver.com</option>
 												<option value="gmail.com">gmail.com</option>
@@ -142,12 +140,14 @@ https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.j
 		</div>
 	</div>
 
+
+
 <script>
 	let idCheck = false; // id 중복검사 했는지
 
 	$( function() { //이전 페이지 핸드폰 번호 불러와서 집어넣기 
 		$.ajax({
-			url: "../sign/getPhoneNum.php", // 클라이언트가 요청을 보낼 서버의 URL 주소
+			url: "../user/sign/getPhoneNum.php", // 클라이언트가 요청을 보낼 서버의 URL 주소
 			type: "POST",           
 			dataType: "json"          
 		}).done( (res) => {
@@ -165,7 +165,7 @@ https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.j
 				return;
 			}
 
-			const res = await fetch('../sign/checkId.php', {
+			const res = await fetch('../user/sign/checkId.php', {
 				method: 'POST',
 				body: JSON.stringify({id: $("#inputId").val()}),
 			})
@@ -181,9 +181,6 @@ https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.j
 		}
 	}
 
-	$( "#mailSelect" ).change(function(){ // 메일 뒷부분 선택 함수
-		$("#mailLast").val( $("#mailSelect").val() );
-	});
 
 	const sample4_execDaumPostcode = () => { //다음 주소
 		new daum.Postcode({
@@ -218,13 +215,15 @@ https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.j
 			},
 			id: {
 				required: true,
-				regex: /^[a-zA-Z][a-zA-Z0-9]{3,14}$/,
+				regex: /^[A-Za-z]{1}[A-Za-z0ii-9]{4,15}$/,
 			},
 			password: {
 				required: true,
+				regex: /^[a-zA-Z][a-zA-Z0-9]{3,14}$/,
 			},
 			passwordCheck: {
 				required: true,
+				regex: /^[a-zA-Z][a-zA-Z0-9]{3,14}$/,
 				equalTo: "#password"
 			},
 			mailFirst: {
@@ -350,7 +349,7 @@ https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.j
 			}
 			
 			try {
-				const res = await fetch('../sign/userSign.php', {
+				const res = await fetch('../user/sign/userSign.php', {
 					method: 'POST',
 					headers: {
 						"Content-Type": "application/json; charset=UTF-8",

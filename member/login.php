@@ -1,3 +1,8 @@
+<?php 
+	session_start();
+	$_SESSION['refer'] = $_SERVER['HTTP_REFERER'];
+?>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
@@ -20,7 +25,7 @@
 					<div class="login-input">
 						<div class="input-text-box">
 							<input type="text" class="input-text mb5" name="id" placeholder="아이디" style="width:190px"/>
-							<input type="text" class="input-text" name="password" placeholder="비밀번호" style="width:190px"/>
+							<input type="password" class="input-text" name="password" placeholder="비밀번호" style="width:190px"/>
 						</div>
 						<button type="submit" class="btn-login">로그인</button>
 					</div>
@@ -36,8 +41,8 @@
 				</div>
 				
 				<div class="box-btn">
-					<a href="/01_회원가입_01_약관동의.php" class="btn-m-gray">회원가입</a>
-					<a href="/02_아이디찾기.php" class="btn-m-gray">ID/PW 찾기</a>
+					<a href="/member/index.php?mode=step_01" class="btn-m-gray">회원가입</a>
+					<a href="/member/index.php?mode=find_id" class="btn-m-gray">ID/PW 찾기</a>
 				</div>
 			</div>
 			<div class="login-guide">
@@ -74,48 +79,49 @@
 	"></script>
 
 	<script>
+		$('#loginForm').validate({
+			rules:{ //유효성검사 룰
+				id: {
+					required: true,
+				},
+				password: {
+					required: true,
+				},
+			},
+			messages: { //에러 메세지 정의
+				id: {
+					required: "아이디를 입력하세요.",
+				},
+				password: {
+					required: "비밀번호를 입력하세요.",
+				},
+			},
+			errorPlacement: function(error, element){ //비워 놓으면 에러 메세지 라벨 안나옴
+				// element.parent().after(error); //이런식으로 위치 조정 가능
+			},
+			invalidHandler: function (form, validator) {
+				var errors = validator.numberOfInvalids();
+				if (errors) {
+					alert(validator.errorList[0].message); //에러메세지는 알러트로 띄움
+					validator.errorList[0].element.focus(); //에러난 곳으로 포커스
+				}
+			},
+			submitHandler: async function(form, event) { // 유효성검사 통과 했을때 실행될 함수
+				// event.preventDefault();
 
-	$('#signform').validate({
-		rules:{ //유효성검사 룰
-			id: {
-				required: true,
-			},
-			password: {
-				required: true,
-			},
-		},
-		messages: { //에러 메세지 정의
-			id: {
-				required: "아이디를 입력하세요.",
-			},
-			password: {
-				required: "비밀번호를 입력하세요.",
-			},
-		},
-		errorPlacement: function(error, element){ //비워 놓으면 에러 메세지 라벨 안나옴
-			// element.parent().after(error); //이런식으로 위치 조정 가능
-		},
-		invalidHandler: function (form, validator) {
-			var errors = validator.numberOfInvalids();
-			if (errors) {
-				alert(validator.errorList[0].message); //에러메세지는 알러트로 띄움
-				validator.errorList[0].element.focus(); //에러난 곳으로 포커스
-			}
-		},
-		submitHandler: async function(form, event) { // 유효성검사 통과 했을때 실행될 함수
-			event.preventDefault();
+				// json변환 밑준비
+				const formArray = $(form).serializeArray(); 
+				const returnArray = {};
+				for (var i = 0; i < formArray.length; i++){
+						returnArray[formArray[i]['name']] = formArray[i]['value'];
+				}
 
-			// json변환 밑준비
-			const formArray = $(form).serializeArray(); 
-			const returnArray = {};
-			for (var i = 0; i < formArray.length; i++){
-					returnArray[formArray[i]['name']] = formArray[i]['value'];
+				$("#loginForm").attr("action", "../user/login/loginCheck.php");
 			}
-			
-			
-		}
-	});
+		});
 	</script>
+
+	
 	
 
 </body>

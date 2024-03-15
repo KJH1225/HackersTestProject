@@ -1,3 +1,7 @@
+<?php 
+	require $_SERVER['DOCUMENT_ROOT'].'/user/login/loginStatus.php';
+?>
+
 <div id="header" class="header">
 	<div class="nav-section">
 		<div class="inner p-r">
@@ -103,14 +107,23 @@
 	<div class="top-section">
 		<div class="inner">
 			<div class="link-box">
-				<!-- 로그인전 -->
-				<a href="/member/login.php">로그인</a>
-				<a href="/member/index.php?mode=step_01">회원가입</a>
-				<a href="#">상담/고객센터</a>
-				<!-- 로그인후 -->
-				<!-- <a href="#">로그아웃</a>
-				<a href="#">내정보</a>
-				<a href="#">상담/고객센터</a> -->
+				<?php
+					if ( $loginStatus ) {
+				?>
+					<!-- 로그인후 -->
+					<a href="/user/login/logout.php">로그아웃</a>
+					<a href="/member/index.php?mode=modify">내정보</a>
+					<a href="#">상담/고객센터</a>
+				<?php
+					} else {
+				?>
+					<!-- 로그인전 -->
+					<a href="/member/login.php">로그인</a>
+					<a href="/member/index.php?mode=step_01">회원가입</a>
+					<a href="#">상담/고객센터</a>
+				<?php
+					}
+				?>
 			</div>
 		</div>
 	</div>

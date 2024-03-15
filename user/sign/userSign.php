@@ -1,5 +1,5 @@
 <?php 
-	require $_SERVER['DOCUMENT_ROOT'].'/sign/signFunction.php';
+	require $_SERVER['DOCUMENT_ROOT'].'/user/sign/signFunction.php';
 	$jsonData = file_get_contents('php://input');
   $decodedData  = json_decode($jsonData, true);
 	$result = array();
