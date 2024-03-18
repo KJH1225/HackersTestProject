@@ -70,7 +70,7 @@
 
 	const checkAuthNum = () => {
 		$.ajax({
-			url: "../user/sign/checkAuthNum.php", // 클라이언트가 요청을 보낼 서버의 URL 주소
+			url: "../user/sign/checkAuthCode.php", // 클라이언트가 요청을 보낼 서버의 URL 주소
 			data: { 
 				inputAuthNum: $("#inputAuthNum").val(), 
 			},                // HTTP 요청과 함께 서버로 보낼 데이터a1004902

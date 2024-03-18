@@ -1,6 +1,4 @@
-<script src="
-https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.js
-"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.js"></script>
 
 <div id="wrap">
 	<div id="container" class="container-full">
@@ -100,24 +98,23 @@ https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.j
 			}
 			console.log(returnArray);
 			
-			// try {
-			// 	const res = await fetch('../user/sign/userSign.php', {
-			// 		method: 'POST',
-			// 		headers: {
-			// 			"Content-Type": "application/json; charset=UTF-8",
-			// 		},
-			// 		body: JSON.stringify(returnArray),
-			// 	});
-			// 	const data = await res.json();
-			// 	console.log("resJSON: ", data);
-			// 	if (data.status) { //회원가입 성공! 리다이렉션
-			// 		document.location.href=data.url;
-			// 	} else { //가입 실패 알람
-			// 		alert(data.message);
-			// 	}
-			// } catch (error) {
-			// 	console.log("에러: ", error); 
-			// }
+			try {
+				const res = await fetch('../user/find/changePassword.php', {
+					method: 'PUT',
+					headers: {
+						"Content-Type": "application/json; charset=UTF-8",
+					},
+					body: JSON.stringify(returnArray),
+				});
+				const data = await res.json();
+				console.log("resJSON: ", data);
+				alert(data.message);
+				if (data.status) { //회원가입 성공! 리다이렉션
+					document.location.href='/';
+				}
+			} catch (error) {
+				console.log("에러: ", error); 
+			}
 			return false;
 		}
 	});

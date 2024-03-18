@@ -1,7 +1,4 @@
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="
-https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.js
-"></script>
+
 
 	<div id="wrap">
 		<div id="container" class="container-full">
@@ -23,7 +20,7 @@ https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.j
 						</ul>
 					</div>
 
-					<form id="signform">
+					<form id="signForm">
 						<div class="section-content">
 							<table border="0" cellpadding="0" cellspacing="0" class="tbl-col-join">
 								<caption class="hidden">강의정보</caption>
@@ -141,6 +138,8 @@ https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.j
 	</div>
 
 
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
 
 <script>
 	let idCheck = false; // id 중복검사 했는지
@@ -160,7 +159,7 @@ https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.j
 
 	const checkId = async () => { // id 중복 확인 함수
 		try {
-			if (!$("#inputId").val()) {
+			if (!$("#inputId").val().trim()) {
 				alert('아이디를 입력해주세요');
 				return;
 			}
@@ -180,7 +179,6 @@ https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.j
 			console.log("에러: ", error); 
 		}
 	}
-
 
 	const sample4_execDaumPostcode = () => { //다음 주소
 		new daum.Postcode({
@@ -207,7 +205,7 @@ https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.j
 	$.validator.addMethod("regex", function(value, element, regexpr) {  // 정규식 유효성 검사 추가        
 		return regexpr.test(value);
 	});
-	$('#signform').validate({
+	$('#signForm').validate({
 		rules:{ //유효성검사 룰
 			name: {
 				required: true,
@@ -215,7 +213,7 @@ https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.j
 			},
 			id: {
 				required: true,
-				regex: /^[A-Za-z]{1}[A-Za-z0ii-9]{4,15}$/,
+				regex: /^[A-Za-z]{1}[A-Za-z0-9]{4,15}$/,
 			},
 			password: {
 				required: true,
@@ -275,13 +273,16 @@ https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.j
 			},
 			id: {
 				required: "id는 영문자로 시작하는 4~15자의 영문소문자, 숫자를 입력하세요.",
+				regex: "아이디 양식이 잘못되었습니다.",
 			},
 			password: {
 				required: "비밀번호는 8-15자의 영문자/숫자 혼합으로 입력하세요.",
+				regex: "비밀번호 양식이 잘못되었습니다.",
 			},
 			passwordCheck: {
 				required: "비밀번호는 8-15자의 영문자/숫자 혼합으로 입력하세요. ",
-				equalTo: "비밀번호 및 비밀번호 확인이 일치하지 않습니다."
+				regex: "비밀번호 확인 양식이 잘못되었습니다.",
+				equalTo: "비밀번호 및 비밀번호 확인이 일치하지 않습니다.",
 			},
 			mailFirst: {
 				required: "이메일을 입력하세요",

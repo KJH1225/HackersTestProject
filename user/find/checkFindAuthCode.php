@@ -9,9 +9,8 @@
   if ($_SESSION['authCode'] === $decodedData['authCode']) {
     $result['status'] = true;
     $result['message'] = "인증 성공!";
-    $result['url'] = "/member/index.php?mode=step_03";
     $result['id'] = $_SESSION['id'];
-    unset($_SESSION['authCode'], $_SESSION['id']);
+    unset($_SESSION['authCode']);
   } else {
     $result['status'] = false;
     $result['message'] = "인증 번호가 틀렸습니다!";

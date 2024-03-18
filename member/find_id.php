@@ -179,10 +179,10 @@
     }
 	}
 	$('#mailForm').submit(async (event) => {
-		await getAuthRequest($('#mailForm'), '../user/find/mailAuth.php');
+		await getAuthRequest($('#mailForm'), '../user/find/getMailAuthCode.php');
 	});
 	$('#phoneForm').submit(async (event) => {
-		await getAuthRequest($('#phoneForm'), '../user/find/phoneAuth.php');
+		await getAuthRequest($('#phoneForm'), '../user/find/getPhoneAuthCode.php');
 	});
 
 
@@ -193,7 +193,7 @@
     }
 
     try {
-			const res = await fetch('../user/find/checkFindAuth.php', {
+			const res = await fetch('../user/find/checkFindAuthCode.php', {
 				method: 'post',
 				headers: {
 					"Content-Type": "application/json; charset=UTF-8",
