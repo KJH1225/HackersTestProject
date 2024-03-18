@@ -46,8 +46,8 @@
         $inputPassword = hash('sha256', $decodedData['password'].$userData['salt']);
         if ($inputPassword === $userData['userPassword']) { // 비밀번호 맞음
           //업데이트
-          $updateQuery = "UPDATE users set mailFirst = '".$decodedData['mailFirst']."', mailLast = '".$decodedData['mailLast']."', firstTelNum = '".$decodedData['firstTelNum']."', middeleTelNum = '".$decodedData['middeleTelNum']."', lastTelNum = '".$decodedData['lastTelNum']."', postCode = '".$decodedData['postCode']."', address = '".$decodedData['address']."', detailAddress = '".$decodedData['detailAddress']."', smsStatus = '".$decodedData['smsStatus']."', mailStatus = '".$decodedData['mailStatus']."'"; // 입력한 id랑 같은 id 조회
-          $updateQuery = $updateQuery."WHERE userId = '".$userId."'";
+          $updateQuery = "UPDATE users set mailFirst = '".$decodedData['mailFirst']."', mailLast = '".$decodedData['mailLast']."', firstTelNum = '".$decodedData['firstTelNum']."', middeleTelNum = '".$decodedData['middeleTelNum']."', lastTelNum = '".$decodedData['lastTelNum']."', postCode = '".$decodedData['postCode']."', address = '".$decodedData['address']."', detailAddress = '".$decodedData['detailAddress']."', smsStatus = '".$decodedData['smsStatus']."', mailStatus = '".$decodedData['mailStatus']."' "; // 입력한 id랑 같은 id 조회
+          $updateQuery = $updateQuery." WHERE userId = '".$userId."'";
           $queryResult = mysqli_query($connect, $updateQuery); // 쿼리 실행
           $userData = mysqli_fetch_assoc($queryResult);
           if($queryResult) {
@@ -68,7 +68,10 @@
   
       mysqli_close($connect); // db 연결 종료
     }
-  } 
+  } else {
+    $result['status'] = false;
+    $result['message'] = "유효하지 않은 값";
+  }
 
 
   $convertJSON = json_encode($result);
