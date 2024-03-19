@@ -3,7 +3,7 @@
 	if ( $loginStatus !== true) {
 		echo "<script>
 						alert('로그인해주세요!'); 
-						location.href='/index.php';
+						location.href='/member/login.php';
 					</script>";
 	} 
 ?>
@@ -40,13 +40,8 @@
 										<th scope="col"><span class="icons">*</span>비밀번호</th>
 										<td>
 											<input type="password" class="input-text" name="password" style="width:302px" placeholder="8-15자의 영문자/숫자 혼합"/>
-											<input type="button" class="btn-s-tin ml10" value="비밀번호 변경">
 										</td>
 									</tr>
-									<!-- <tr>
-										<th scope="col"><span class="icons">*</span>비밀번호 확인</th>
-										<td><input type="password" class="input-text" style="width:302px"/></td>
-									</tr> -->
 									<tr>
 										<th scope="col"><span class="icons">*</span>이메일주소</th>
 										<td>
@@ -88,11 +83,11 @@
 										<td>
 											<div class="box-input" id="smsBox">
 												<label class="input-sp">
-													<input type="radio"  name="smsRadio" id="1" value="1"/>
+													<input type="radio"  name="smsStatus" id="1" value="1"/>
 													<span class="input-txt">수신함</span>
 												</label>
 												<label class="input-sp">
-													<input type="radio" name="smsRadio" id="0" value="0"/>
+													<input type="radio" name="smsStatus" id="0" value="0"/>
 													<span class="input-txt">미수신</span>
 												</label>
 											</div>
@@ -104,11 +99,11 @@
 										<td>
 											<div class="box-input" id="mailBox">
 												<label class="input-sp">
-													<input type="radio" name="mailRadio" id="1" value="1"/>
+													<input type="radio" name="mailStatus" id="1" value="1"/>
 													<span class="input-txt">수신함</span>
 												</label>
 												<label class="input-sp">
-													<input type="radio" name="mailRadio" id="0" value="0"/>
+													<input type="radio" name="mailStatus" id="0" value="0"/>
 													<span class="input-txt">미수신</span>
 												</label>
 											</div>
@@ -211,10 +206,10 @@
 			detailAddress: {
 				required: true,
 			},
-			smsRadio: {
+			smsStatus: {
 				required: true,
 			},
-			mailRadio: {
+			mailStatus: {
 				required: true,
 			},
 		},
@@ -247,10 +242,10 @@
 			detailAddress: {
 				required: "상세주소를 입력하세요",
 			},
-			smsRadio: {
+			smsStatus: {
 				required: "sms 수신 여부를 선택하세요",
 			},
-			mailRadio: {
+			mailStatus: {
 				required: "메일 수신 여부를 선택하세요",
 			},
 		},
@@ -287,9 +282,9 @@
 				const data = await res.json();
 				console.log("resJSON: ", data);
 				alert(data.message);
-				// if (data.status) { //회원가입 성공! 리다이렉션
-				// 	document.location.href='/';
-				// }
+				if (data.status) { //회원가입 성공! 리다이렉션
+					location.reload();
+				}
 			} catch (error) {
 				console.log("에러: ", error); 
 			}

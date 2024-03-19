@@ -23,11 +23,10 @@
   $postCodeValidate = preg_match("/(\d{3}-\d{3}|\d{5})/", $decodedData['postCode']);
   $addressValidate = preg_match("/[가-힣0-9\s]$/", $decodedData['address']);
   $detailAddressValidate = preg_match("/[가-힣0-9\s]$/", $decodedData['detailAddress']);
-  $smsRadio = preg_match("/^(1|0)$/", $decodedData['smsRadio']);
-  $mailRadio = preg_match("/^(1|0)$/", $decodedData['mailRadio']);
+  $smsStatus = preg_match("/^(1|0)$/", $decodedData['smsStatus']);
+  $mailStatus = preg_match("/^(1|0)$/", $decodedData['mailStatus']);
 
-  if($passwordValidate && $mailFirstValidate && $mailLastValidate && $firstTelNumValidate && $middeleTelNumValidate && $lastTelNumValidate && $postCodeValidate && $addressValidate && $detailAddressValidate && $smsRadio && $mailRadio) {
-
+  if($passwordValidate && $mailFirstValidate && $mailLastValidate && $firstTelNumValidate && $middeleTelNumValidate && $lastTelNumValidate && $postCodeValidate && $addressValidate && $detailAddressValidate && $smsStatus && $mailStatus) {
 
     if(mysqli_connect_errno()){ //db연결 실패
       $result['status'] = false;
@@ -56,6 +55,7 @@
           } else {
             $result['status'] = false;
             $result['message'] = "정보수정 실패";
+            $result['error'] = mysqli_error($connect);
           }
         }else {
           $result['status'] = false;
