@@ -81,7 +81,6 @@
 			alert(res.message);
 			if (res.status) {
 				document.location.href=res.url;
-				// document.location.href='/member/index.php?mode=step_03';
 			}
 		})
 	}

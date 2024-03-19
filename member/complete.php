@@ -1,4 +1,11 @@
-
+<?php 
+	require $_SERVER['DOCUMENT_ROOT'].'/user/login/loginStatus.php';
+	if ( $loginStatus === true) {
+		echo "<script>
+						location.href='/';
+					</script>";
+	} 
+?>
 
 <div id="wrap">
 	<div id="container" class="container-full">

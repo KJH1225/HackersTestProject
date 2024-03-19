@@ -16,7 +16,6 @@
     $passwordValidate = preg_match("/^[a-zA-Z][a-zA-Z0-9]{3,14}$/", $password);
     $errorMessage = "<script>
                       alert('가입된 회원이 아니거나 비밀번호가 틀립니다.'); 
-                      // location.href='/index.php';
                       history.back(-1);
                     </script>";
 
@@ -34,7 +33,6 @@
     $strQuery  = "SELECT userId, userPassword, salt FROM users WHERE userId = '".$id."'"; // 입력한 id랑 같은 id 조회
     $queryResult = mysqli_query($connect, $strQuery); // 쿼리 실행
     if(mysqli_num_rows($queryResult) == 0){ // 같은 id 없음
-      // mysqli_close($connect); //필요한가
       echo $errorMessage;
       exit;
     }
@@ -50,7 +48,7 @@
           echo "<script> location.href='".$referer."'; </script>";
           echo $_SESSION['loginUser'];
       } else {
-          echo "<script> location.href='/index.php'; </script>";
+          echo "<script> location.href='/'; </script>";
       }
     }else { //비밀번호 다름
       echo $errorMessage;
