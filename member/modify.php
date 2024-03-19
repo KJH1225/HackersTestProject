@@ -262,14 +262,12 @@
 		submitHandler: async function(form, event) { // 유효성검사 통과 했을때 실행될 함수
 			event.preventDefault();
 
-			// json변환 밑준비
+			// json변환 준비
 			const formArray = $(form).serializeArray(); 
 			const returnArray = {};
 			for (var i = 0; i < formArray.length; i++){
 					returnArray[formArray[i]['name']] = formArray[i]['value'];
 			}
-
-			// console.log(returnArray);
 			
 			try {
 				const res = await fetch('../user/modify/userModify.php', {
