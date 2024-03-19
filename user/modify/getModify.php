@@ -28,8 +28,8 @@
     }else{ // 가입안함
       $result['status'] = false;
       $result['message'] = "조회실패";
-      $result['loginUser'] = $loginUser;
-      $result['strQuery'] = $strQuery;
+      // $result['loginUser'] = $loginUser;
+      // $result['strQuery'] = $strQuery;
     }
 
     mysqli_close($connect); // db 연결 종료

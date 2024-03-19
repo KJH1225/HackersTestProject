@@ -135,7 +135,7 @@
 </div>
 
 <script>
-	$(document).ready( //생년월일 select태그에 옵션추가
+	$( //생년월일 select태그에 옵션추가
 			function () { 
 					for (var i = 2024; i > 1920; i--) {
 							$('.year').append('<option value="' + i + '">' + i + '</option>');

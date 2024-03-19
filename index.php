@@ -368,7 +368,7 @@
 		</div>
 
 		<script type="text/javascript">
-			$(document).ready(function(){
+			$(function(){
 				//main_slider_applyclass
 				var bnrWrap = $('.slider-applyclass')
 				var bnr_slider = bnrWrap.find('.bxslider');

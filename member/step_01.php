@@ -494,7 +494,7 @@ Aqua Auth 컨텐츠의 녹화차단 - Aqua Director 컨텐츠의 다운로드 DR
 <script type="text/javascript">
 
 	const allCheck = () => {
-		const checkBoxs = document.getElementsByClassName('checkBox');
+		const checkBoxs = $('.checkBox');
 		const allCheckBox = document.getElementById('allCheckBox');
 
 		console.log(allCheckBox);
@@ -505,7 +505,7 @@ Aqua Auth 컨텐츠의 녹화차단 - Aqua Director 컨텐츠의 다운로드 DR
 	}
 
 	const next = () => {
-		const checkBoxs = document.getElementsByClassName('checkBox');
+		const checkBoxs = $('.checkBox');
 		let checked = 0;
 		
 		for (const checkBox of checkBoxs) {
