@@ -1,0 +1,86 @@
+
+<div id="content" class="content">
+  <div class="tit-box-h3">
+    <h3 class="tit-h3">강의</h3>
+  </div>
+  <table border="0" cellpadding="0" cellspacing="0" class="tbl-bbs">
+    <caption class="hidden">강의</caption>
+    <colgroup>
+      <col style="width:8%">
+      <col style="width:12%">
+      <col style="*">
+      <col style="width:8%">
+      <col style="width:12%">
+      <col style="width:12%">
+    </colgroup>
+
+    <thead>
+      <tr>
+        <th scope="col">번호</th>
+        <th scope="col">분류</th>
+        <th scope="col">제목</th>
+        <th scope="col">난이도</th>
+        <th scope="col">교육시간</th>
+        <th scope="col">강사</th>
+      </tr>
+    </thead>
+ 
+    <tbody>
+    </tbody>
+  </table>
+  <!-- <div class="box-paging">
+    <a href="#"><i class="icon-first"><span class="hidden">첫페이지</span></i></a>
+    <a href="#"><i class="icon-prev"><span class="hidden">이전페이지</span></i></a>
+    <a href="#" class="active">1</a>
+    <a href="#">2</a>
+    <a href="#">3</a>
+    <a href="#">4</a>
+    <a href="#">5</a>
+    <a href="#">6</a>
+    <a href="#"><i class="icon-next"><span class="hidden">다음페이지</span></i></a>
+    <a href="#"><i class="icon-last"><span class="hidden">마지막페이지</span></i></a>
+  </div> -->
+  <div class="box-btn t-r">
+    <a href="/admin/index.php?mode=lecture_write" class="btn-m">강의 추가</a>
+  </div>
+</div>
+    
+<script>
+	$(function() {
+		get_lecture();
+		// get_lecture(3);
+	})
+
+  const get_lecture = (category) => {
+		fetch('/admin/lecture/get_lecture.php', {
+					method: 'post',
+					headers: {
+						"Content-Type": "application/json; charset=UTF-8",
+					},
+					body: JSON.stringify({category: category}),
+				})
+				.then(res => res.json())
+				.then(data => {
+          console.log(data);
+          for( let value of data.lecture ){
+            console.log(value);
+            $('tbody')
+              .append(
+                `<tr class="bbs-sbj">
+                  <td><span class="txt-icon-line"><em>${value.lecture_idx}</em></span></td>
+                  <td>${value.categor_name}</td>
+                  <td>
+                    <a href="#">
+                      <span class="tc-gray ellipsis_line">수강 강의명 : ${value.lecture_name}</span>
+                      <strong class="ellipsis_line">절대 후회 없는 강의 예요!</strong>
+                    </a>
+                  </td>
+                  <td>${value.learning_difficulty}</td>
+                  <td>${value.learning_course_duration}</td>
+                  <td class="last">${value.instructor_name}</td>
+                </tr>`);
+            }
+				})
+				.catch(error => console.log('error발생: ', error));
+	}
+</script>

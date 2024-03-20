@@ -1,0 +1,288 @@
+<?php 
+	require_once $_SERVER['DOCUMENT_ROOT'].'/user/login/login_status.php';
+	if ( $loginStatus !== true) {
+		echo "<script>
+						alert('로그인해주세요!'); 
+						location.href='/member/login.html';
+					</script>";
+	} 
+?>
+
+
+<div id="content" class="content">
+	<div class="inner">
+		<!-- <div class="tit-box-h3">
+			<h3 class="tit-h3">내정보수정</h3>
+			<div class="sub-depth">
+				<span><i class="icon-home"><span>홈</span></i></span>
+				<strong>내정보수정</strong>
+			</div>
+		</div> -->
+		<div class="section-content">
+			<form id="modify_form">
+				<table border="0" cellpadding="0" cellspacing="0" class="tbl-col-join">
+					<caption class="hidden">강의정보</caption>
+					<colgroup>
+						<col style="width:15%"/>
+						<col style="*"/>
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="col"><span class="icons">*</span>이름</th>
+							<td id="user_name"></td>
+						</tr>
+						<tr>
+							<th scope="col"><span class="icons">*</span>아이디</th>
+							<td id="user_id"></td>
+						</tr>
+						<tr>
+							<th scope="col"><span class="icons">*</span>비밀번호</th>
+							<td>
+								<input type="password" class="input-text" name="password" style="width:302px" placeholder="8-15자의 영문자/숫자 혼합"/>
+							</td>
+						</tr>
+						<tr>
+							<th scope="col"><span class="icons">*</span>이메일주소</th>
+							<td>
+								<input type="text" class="input-text" id="mail_first" name="mail_first" style="width:138px"/> @ <input type="text" class="input-text" id="mail_last" name="mail_last" style="width:138px"/>
+							</td>
+						</tr>
+						<tr>
+							<th scope="col"><span class="icons">*</span>휴대폰 번호</th>
+							<td>
+								<span id="phone_num_first"></span> -
+								<span id="phone_num_middele"></span> -
+								<span id="phone_num_last"></span>
+							</td>
+						</tr>
+						<tr>
+							<th scope="col"><span class="icons"></span>일반전화 번호</th>
+							<td>
+								<input type="text" class="input-text" id="tel_num_first" name="tel_num_first" style="width:88px"/> - 
+								<input type="text" class="input-text" id="tel_num_middele" name="tel_num_middele" style="width:88px"/> - 
+								<input type="text" class="input-text" id="tel_num_last" name="tel_num_last" style="width:88px"/>
+							</td>
+						</tr>
+						<tr>
+							<th scope="col"><span class="icons">*</span>주소</th>
+							<td>
+								<p>
+									<label>우편번호 <input type="text" class="input-text ml5" id="post_code" name="post_code" style="width:242px" readonly/></label><input type="button" onclick="sample4_execDaumpost_code()" class="btn-s-tin ml10" value="주소찾기">
+								</p>
+								<p class="mt10">
+									<label>기본주소 <input type="text" class="input-text ml5" id="address" name="address" style="width:719px"/></label>
+								</p>
+								<p class="mt10">
+									<label>상세주소 <input type="text" class="input-text ml5" id="detail_address" name="detail_address" style="width:719px"/></label>
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<th scope="col"><span class="icons">*</span>SMS수신</th>
+							<td>
+								<div class="box-input" id="sms_box">
+									<label class="input-sp">
+										<input type="radio"  name="sms_status" id="1" value="1"/>
+										<span class="input-txt">수신함</span>
+									</label>
+									<label class="input-sp">
+										<input type="radio" name="sms_status" id="0" value="0"/>
+										<span class="input-txt">미수신</span>
+									</label>
+								</div>
+								<p>SMS수신 시, 해커스의 혜택 및 이벤트 정보를 받아보실 수 있습니다.</p>
+							</td>
+						</tr>
+						<tr>
+							<th scope="col"><span class="icons">*</span>메일수신</th>
+							<td>
+								<div class="box-input" id="mail_box">
+									<label class="input-sp">
+										<input type="radio" name="mail_status" id="1" value="1"/>
+										<span class="input-txt">수신함</span>
+									</label>
+									<label class="input-sp">
+										<input type="radio" name="mail_status" id="0" value="0"/>
+										<span class="input-txt">미수신</span>
+									</label>
+								</div>
+								<p>메일수신 시, 해커스의 혜택 및 이벤트 정보를 받아보실 수 있습니다.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="box-btn">
+					<button type="submit" class="btn-l">정보수정</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/post_code/prod/post_code.v2.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+<script>
+	$(function () {
+				fetch('../user/modify/get_modify.php', {
+					method: 'POST',
+					headers: {
+						"Content-Type": "application/json; charset=UTF-8",
+					},
+					// body: JSON.stringify({test: 'test'}),
+				})
+				.then(res => res.json())
+				.then(data => {
+					console.log("data: ", data);
+					for (let key in data) {
+						$(`#${key}`).val(data[key]);
+					}
+					$("#user_id").text(data["user_id"]);
+					$("#user_name").text(data["user_name"]);
+					$("#phone_num_first").text(data["phone_num_first"]);
+					$("#phone_num_middele").text(data["phone_num_middele"]);
+					$("#phone_num_last").text(data["phone_num_last"]);
+					$("#sms_box").find(`#${data["sms_status"]}`).prop("checked", true);
+					$("#mail_box").find(`#${data["mail_status"]}`).prop("checked", true);
+				})
+				.catch(error => console.log('error발생: ', error));
+		}
+	);
+	
+	const sample4_execDaumpost_code = () => { //다음 주소
+		new daum.post_code({
+			oncomplete: function(data) {
+				var addr = ''; // 주소 변수
+
+				//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+				if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+					addr = data.roadAddress;
+				} else { // 사용자가 지번 주소를 선택했을 경우(J)
+					addr = data.jibunAddress;
+				}
+
+				// 우편번호와 주소 정보를 해당 필드에 넣는다.
+				document.getElementById('post_code').value = data.zonecode;
+				document.getElementById("address").value = addr;
+				// 커서를 상세주소 필드로 이동한다.
+				document.getElementById("detail_address").focus();
+			}
+		}).open();
+	}
+
+	//유효성검사
+$.validator.addMethod("regex", function(value, element, regexpr) {  // 정규식 유효성 검사 추가        
+	return regexpr.test(value);
+});
+$('#modify_form').validate({
+	rules:{ //유효성검사 룰
+		password: {
+			required: true,
+			regex: /^[a-zA-Z][a-zA-Z0-9]{3,14}$/,
+		},
+		mail_first: {
+			required: true,
+		},
+		mail_last: {
+			required: true,
+		},
+		tel_num_first: {
+			number: true
+		},
+		tel_num_middele: {
+			number: true
+		},
+		tel_num_last: {
+			number: true
+		},
+		post_code: {
+			required: true,
+		},
+		address: {
+			required: true,
+		},
+		detail_address: {
+			required: true,
+		},
+		sms_status: {
+			required: true,
+		},
+		mail_status: {
+			required: true,
+		},
+	},
+	messages: { //에러 메세지 정의
+		password: {
+			required: "비밀번호를 입력하세요",
+			regex: "비밀번호 양식이 잘못되었습니다.",
+		},
+		mail_first: {
+			required: "이메일을 입력하세요",
+		},
+		mail_last: {
+			required: "이메일을 입력하세요",
+		},
+		tel_num_first: {
+			required: "일반전화는 숫자만 입력 가능합니다.",
+		},
+		tel_num_middele: {
+			required: "일반전화는 숫자만 입력 가능합니다.",
+		},
+		tel_num_last: {
+			required: "일반전화는 숫자만 입력 가능합니다.",
+		},
+		post_code: {
+			required: "주소를 입력하세요",
+		},
+		address: {
+			required: "주소를 입력하세요",
+		},
+		detail_address: {
+			required: "상세주소를 입력하세요",
+		},
+		sms_status: {
+			required: "sms 수신 여부를 선택하세요",
+		},
+		mail_status: {
+			required: "메일 수신 여부를 선택하세요",
+		},
+	},
+	errorPlacement: function(error, element){ //비워 놓으면 에러 메세지 라벨 안나옴
+		// element.parent().after(error); //이런식으로 위치 조정 가능
+	},
+	invalidHandler: function (form, validator) {
+		var errors = validator.numberOfInvalids();
+		if (errors) {
+			alert(validator.errorList[0].message); //에러메세지는 알러트로 띄움
+			validator.errorList[0].element.focus(); //에러난 곳으로 포커스
+		}
+	},
+	submitHandler: async function(form, event) { // 유효성검사 통과 했을때 실행될 함수
+		event.preventDefault();
+
+		// json변환 준비
+		const formArray = $(form).serializeArray(); 
+		const returnArray = {};
+		for (var i = 0; i < formArray.length; i++){
+				returnArray[formArray[i]['name']] = formArray[i]['value'];
+		}
+		
+		try {
+			const res = await fetch('../user/modify/user_modify.php', {
+				method: 'POST',
+				headers: {
+					"Content-Type": "application/json; charset=UTF-8",
+				},
+				body: JSON.stringify(returnArray),
+			});
+			const data = await res.json();
+			console.log("resJSON: ", data);
+			alert(data.message);
+			if (data.status) { //회원가입 성공! 리다이렉션
+				location.reload();
+			}
+		} catch (error) {
+			console.log("에러: ", error); 
+		}
+	}
+});
+</script>

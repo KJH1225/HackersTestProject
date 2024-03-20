@@ -1,5 +1,7 @@
 <?php 
 	include_once $_SERVER['DOCUMENT_ROOT']."/include/header.html";
+
+	include_once $_SERVER['DOCUMENT_ROOT']."/include/lnb.html";
 		
 	$file = isset($_GET['mode']) ? $_GET['mode'].".html" : '';
 
@@ -13,4 +15,6 @@
 		
 	include_once $_SERVER['DOCUMENT_ROOT']."/include/footer.html";	
 ?>
+
+
 

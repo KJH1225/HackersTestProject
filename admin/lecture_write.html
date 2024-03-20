@@ -1,0 +1,149 @@
+
+<div id="content" class="content">
+  <div class="tit-box-h3">
+    <h3 class="tit-h3">강의</h3>
+  </div>
+  <table border="0" cellpadding="0" cellspacing="0" class="tbl-col">
+		<caption class="hidden">강의정보</caption>
+		<colgroup>
+			<col style="width:15%">
+			<col style="*">
+		</colgroup>
+
+		<tbody>
+      <form id="lecture_form">
+        <tr>
+          <th scope="col">분류 및 강사</th>
+          <td>
+            분류:<select class="input-sel" id="category_select" name="lecture_category_idx" style="width:200px">
+              
+            </select>
+            강사:<select class="input-sel ml5" id="instructor_select" name="instructor_idx" style="width:200px">
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th scope="col">강의명</th>
+          <td><input type="text" class="input-text" name="lecture_name" style="width:611px"></td>
+        </tr>
+        <tr>
+          <th scope="col">학습난이도</th>
+          <td>
+            <ul class="list-rating-choice">
+              <li>
+                <label class="input-sp ico">
+                  <input type="radio" name="learning_difficulty_radio" id="" value="상" checked="checked">
+                  <span class="input-txt">상</span>
+                </label>
+                <span>상</span>
+              </li>
+              <li>
+                <label class="input-sp ico">
+                  <input type="radio" name="learning_difficulty_radio" value="중" id="">
+                  <span class="input-txt">중</span>
+                </label>
+                <span>중</span>
+              </li>
+              <li>
+                <label class="input-sp ico">
+                  <input type="radio" name="learning_difficulty_radio" value="하" id="">
+                  <span class="input-txt">하</span>
+                </label>
+                <span>하</span>
+              </li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <th scope="col">교육시간</th>
+          <td><input type="text" class="input-text" name="learning_course_duration" style="width:611px" placeholder="18시간 (18강)"></td>
+        </tr>
+        <tr>
+          <th scope="col">썸네일이미지</th>
+          <td><input type="file" accept='image/*' enctype="multipart/form-data" class="input-file" name="lecture_thumbnail_image" style="width:611px"></td>
+        </tr>
+      </form>
+		</tbody>
+	</table>
+  <div class="box-btn t-r">
+    <button class="btn-m" id="" onclick="$('form').submit();">강의 추가</button>
+  </div>
+</div>
+    
+<script>
+	$(function() {
+		get_instructor();
+		get_lecture_category();
+
+	})
+
+  const get_instructor = () => { //분류 목록 조회
+		fetch('/admin/instructor/get_instructor.php', {
+					method: 'get',
+					headers: {
+						"Content-Type": "application/json; charset=UTF-8",
+					},
+				})
+				.then(res => res.json())
+				.then(data => {
+          console.log(data);
+          for( let value of data.instructor ){
+            $('#instructor_select').append(`<option value="${value.instructor_idx}">${value.instructor_name}</option>`);
+          }
+				})
+				.catch(error => console.log('error발생: ', error));
+	}
+
+  const get_lecture_category = () => { //카테고리 목록 조회
+		fetch('/admin/lecture_category/get_lecture_category.php', {
+					method: 'get',
+					headers: {
+						"Content-Type": "application/json; charset=UTF-8",
+					},
+				})
+				.then(res => res.json())
+				.then(data => {
+          console.log(data);
+          for( let value of data.lecture_category ){
+            $('#category_select').append(`<option value="${value.lecture_category_idx}">${value.categor_name}</option>`);
+          }
+				})
+				.catch(error => console.log('error발생: ', error));
+	}
+
+  // $(".input-file").on("change", function(event){
+  //   const imageFile = event.target.files[0];
+  //   console.log(imageFile);
+
+  //   let formData = new FormData();
+  //   formData.append('lecture_thumbnail', imageFile);
+
+  //   fetch('/admin/lecture/post_lecture_thumbnail.php', {
+  //     method: 'post',
+  //     headers: {},
+  //     body: formData,
+  //   })
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     console.log(data);
+  //   })
+  //   .catch(error => console.log('error발생: ', error));
+  // });
+
+  $("#lecture_form").submit(function(event) {
+      event.preventDefault();
+
+      const formData1 = new FormData($('#lecture_form')[0]);
+
+      fetch('/admin/lecture/post_lecture.php', {
+					method: 'post',
+					headers: {},
+					body: formData1,
+				})
+				.then(res => res.json())
+				.then(data => {
+          console.log(data);
+				})
+				.catch(error => console.log('error발생: ', error));
+  });
+</script>
