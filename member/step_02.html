@@ -49,7 +49,7 @@
 <script>
 	const getPhoneAuthNum = async () => {
 		try {
-			const res = await fetch('../user/sign/get_phone_auth_code.php', {
+			const res = await fetch('/model/user/sign/get_phone_auth_code.php', {
 				method: 'POST',
 				headers: {
 					"Content-Type": "application/json; charset=UTF-8",
@@ -72,7 +72,7 @@
 
 	const checkAuthNum = async () => {
 		try {
-			const res = await fetch('../user/sign/check_auth_code.php', {
+			const res = await fetch('/model/user/sign/check_auth_code.php', {
 				method: 'POST',
 				headers: {
 					"Content-Type": "application/json; charset=UTF-8",

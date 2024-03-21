@@ -1,5 +1,5 @@
 <?php 
-	require_once $_SERVER['DOCUMENT_ROOT'].'/user/login/login_status.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/model/user/login/login_status.php';
 	if ( $loginStatus !== true) {
 		echo "<script>
 						alert('로그인해주세요!'); 
@@ -123,7 +123,7 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
 <script>
 	$(function () {
-				fetch('../user/modify/get_modify.php', {
+				fetch('/model/user/modify/get_modify.php', {
 					method: 'POST',
 					headers: {
 						"Content-Type": "application/json; charset=UTF-8",
@@ -267,7 +267,7 @@ $('#modify_form').validate({
 		}
 		
 		try {
-			const res = await fetch('../user/modify/user_modify.php', {
+			const res = await fetch('/model/user/modify/user_modify.php', {
 				method: 'POST',
 				headers: {
 					"Content-Type": "application/json; charset=UTF-8",

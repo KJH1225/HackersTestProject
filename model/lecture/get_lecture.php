@@ -15,10 +15,14 @@
                   ON lecture.instructor_idx = ins.instructor_idx
                   LEFT JOIN lecture_category AS cat 
                   ON lecture.lecture_category_idx = cat.lecture_category_idx 
-                  order by lecture_idx desc;";
+                ";
     if (isset($decodedData['category'])) { 
-      $strQuery = $strQuery . " lecture.lecture_category_idx = '" . $decodedData['category'] . "'";
+      $strQuery = $strQuery . " WHERE lecture.lecture_category_idx = '" . $decodedData['category'] . "'";
     }
+    if (isset($decodedData['lecture'])) { 
+      $strQuery = $strQuery . " WHERE lecture.lecture_idx = '" . $decodedData['lecture'] . "'";
+    }
+    $strQuery = $strQuery." order by lecture_idx desc;";
     $queryResult = mysqli_query($connect, $strQuery); // 쿼리 실행
     $numRow = mysqli_num_rows($queryResult); //조회한 행의 개수 
     $lectureData = mysqli_fetch_all($queryResult, MYSQLI_ASSOC);
@@ -33,6 +37,7 @@
     }else{ // 쿼리실패 or 강의없음
       $result['status'] = false;
       $result['message'] = "쿼리실패 or 강의없음";
+      $result['strQuery'] = $strQuery;
     }
 
     mysqli_close($connect); // db 연결 종료

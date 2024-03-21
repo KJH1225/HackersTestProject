@@ -1,5 +1,5 @@
 <?php
-  require_once $_SERVER['DOCUMENT_ROOT'].'/user/login/login_status.php';
+  require_once $_SERVER['DOCUMENT_ROOT'].'/model/user/login/login_status.php';
   if ( $loginStatus !== true || $is_admin !== true) {
     echo "<script>
             alert('로그인 해주세요');

@@ -1,5 +1,5 @@
 <?php 
-	require_once $_SERVER['DOCUMENT_ROOT'].'/user/login/login_status.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/model/user/login/login_status.php';
 ?>
 
 
@@ -151,7 +151,7 @@
 							if ( $loginStatus ) {
 						?>
 							<!-- 로그인후 -->
-							<a href="/user/login/logout.html">로그아웃</a>
+							<a href="/model/user/login/logout.html">로그아웃</a>
 							<a href="/member/index.php?mode=modify">내정보</a>
 							<a href="#">상담/고객센터</a>
 						<?php

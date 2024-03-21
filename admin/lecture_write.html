@@ -24,7 +24,7 @@
         </tr>
         <tr>
           <th scope="col">강의명</th>
-          <td><input type="text" class="input-text" name="lecture_name" style="width:611px"></td>
+          <td><input type="text" class="input-text" name="lecture_name" style="width:611px" require></td>
         </tr>
         <tr>
           <th scope="col">학습난이도</th>
@@ -56,7 +56,7 @@
         </tr>
         <tr>
           <th scope="col">교육시간</th>
-          <td><input type="text" class="input-text" name="learning_course_duration" style="width:611px" placeholder="18시간 (18강)"></td>
+          <td><input type="text" class="input-text" name="learning_course_duration" style="width:611px" placeholder="18시간 (18강)" require></td>
         </tr>
         <tr>
           <th scope="col">썸네일이미지</th>
@@ -78,7 +78,7 @@
 	})
 
   const get_instructor = () => { //분류 목록 조회
-		fetch('/admin/instructor/get_instructor.php', {
+		fetch('/model/instructor/get_instructor.php', {
 					method: 'get',
 					headers: {
 						"Content-Type": "application/json; charset=UTF-8",
@@ -95,7 +95,7 @@
 	}
 
   const get_lecture_category = () => { //카테고리 목록 조회
-		fetch('/admin/lecture_category/get_lecture_category.php', {
+		fetch('/model/lecture_category/get_lecture_category.php', {
 					method: 'get',
 					headers: {
 						"Content-Type": "application/json; charset=UTF-8",
@@ -118,7 +118,7 @@
   //   let formData = new FormData();
   //   formData.append('lecture_thumbnail', imageFile);
 
-  //   fetch('/admin/lecture/post_lecture_thumbnail.php', {
+  //   fetch('/model/lecture/post_lecture_thumbnail.php', {
   //     method: 'post',
   //     headers: {},
   //     body: formData,
@@ -135,7 +135,20 @@
 
       const formData1 = new FormData($('#lecture_form')[0]);
 
-      fetch('/admin/lecture/post_lecture.php', {
+      if (!$('.input-file').val()) {
+        alert('썸네일 이미지를 첨부해주세요');
+        return;
+      }
+      if (!$('[name=lecture_name]').val().trim()) {
+        alert('강의명을 입력해주세요');
+        return;
+      }
+      if (!$('[name=learning_course_duration]').val().trim()) {
+        alert('교육시간을 입력해주세요');
+        return;
+      }
+
+      fetch('/model/lecture/post_lecture.php', {
 					method: 'post',
 					headers: {},
 					body: formData1,
@@ -143,6 +156,10 @@
 				.then(res => res.json())
 				.then(data => {
           console.log(data);
+          alert(data.message);
+          if (data.status) {
+            document.location.href='/admin/index.php?mode=lecture';
+          }
 				})
 				.catch(error => console.log('error발생: ', error));
   });

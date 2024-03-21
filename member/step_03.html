@@ -139,7 +139,7 @@
 	let idCheck = false; // id 중복검사 했는지
 
 	$( function() { //이전 페이지 핸드폰 번호 불러와서 집어넣기 
-		fetch('../user/sign/get_phone_num.php', {
+		fetch('/model/user/sign/get_phone_num.php', {
 			method: 'POST',
 			headers: {
 				"Content-Type": "application/json; charset=UTF-8",
@@ -162,7 +162,7 @@
 				return;
 			}
 
-			const res = await fetch('../user/sign/check_id.php', {
+			const res = await fetch('/model/user/sign/check_id.php', {
 				method: 'POST',
 				body: JSON.stringify({id: $("#inputId").val()}),
 			})
@@ -348,7 +348,7 @@
 			}
 			
 			try {
-				const res = await fetch('../user/sign/user_sign.php', {
+				const res = await fetch('/model/user/sign/user_sign.php', {
 					method: 'POST',
 					headers: {
 						"Content-Type": "application/json; charset=UTF-8",

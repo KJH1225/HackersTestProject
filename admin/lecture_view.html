@@ -1,0 +1,122 @@
+
+<div id="content" class="content">
+  <div class="tit-box-h3">
+    <h3 class="tit-h3">강의제목</h3>
+  </div>
+  <div class="lecture-summary">
+    <div class="lecture-img">
+      <img id="thumImg" src="" width="298" height="210" alt="">
+    </div>
+    <div class="lecture-info">
+            <label>분류: <sapn class="lecture_ncs_txt">분류: </sapn></label>
+      <table border="0" cellpadding="0" cellspacing="0" class="tbl-row-lecture">
+        <caption class="hidden">강의정보</caption>
+        <colgroup>
+          <col style="width:15%">
+          <col style="*">
+        </colgroup>
+        <tbody>
+          <tr>
+            <th scope="col">과정정보</th>
+            <td>
+              <table border="0" cellpadding="0" cellspacing="0" class="tbl-inner">
+                <caption class="hidden">과정정보</caption>
+                <colgroup>
+                  <col style="width:25%">
+                  <col style="width:25%">
+                  <col style="width:25%">
+                  <col style="width:25%">
+                </colgroup>
+    
+                <tbody>
+                <tr>
+                  <th scope="col">강사</th>
+                  <td id="instructor_name"></td>
+                  <th scope="col">학습난이도</th>
+                  <td id="learning_difficulty"></td>
+                </tr>
+                <tr>
+                  <th scope="col">교육시간</th>
+                  <td id="learning_course_duration"></td>
+                </tr>
+                <!-- <tr>
+                  <th scope="col">복습기간</th>
+                  <td>30일</td>
+                  <th scope="col">정원</th>
+                  <td>500명</td>
+                </tr> -->
+                <!-- <tr>
+                  <th scope="col" colspan="1">교재</th>
+                  <td colspan="3">없음</td>
+                </tr> -->
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <div class="user-notice"><strong>사업주지원 수강 유의사항</strong>
+        <ul class="list-guide mt15">
+          <li>사업주지원 과정은 수료한 인원에 한해 환급비용 혜택을 받을 수 있습니다. </li>
+          <li>사업주지원 과정 수료기준은 진도율 80% 이상 / 평가(중간, 최종) 및 과제 합산점수 60점 이상입니다.</li>
+        </ul>
+      </div> -->
+    </div>
+  </div>
+  <div class="lecture-btn after f-r">
+    <!-- <a href="#;" onclick="interest_lec_go();" class="btn-m-line"><i class="icon-favorites"></i>관심강의</a> -->
+    <button class="btn-m-line mt15">수정</button>
+    <button class="btn-m mt15" onclick="delete_lecture()">삭제</button>
+  </div>
+</div>
+    
+<script>
+  
+  $(function() {
+    const params = new URL(location.href).searchParams;
+    const lecture = params.get('lecture');
+		get_lecture(lecture);
+	})
+
+  const get_lecture = (lecture) => {
+		fetch('/model/lecture/get_lecture.php', {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify({lecture: lecture}),
+    })
+    .then(res => res.json())
+    .then(data => {
+      // console.log(data);
+      for( let value of data.lecture ){
+        console.log(value);
+        $('.tit-h3').text(value.lecture_name);
+        $('#thumImg').attr('src', value.lecture_thumbnail_url);
+        $('.lecture_ncs_txt').text(value.categor_name);
+        $('#instructor_name').text(value.instructor_name);
+        $('#learning_course_duration').text(value.learning_course_duration);
+        $('#learning_difficulty').text(value.learning_difficulty);
+      }
+    })
+    .catch(error => console.log('error발생: ', error));
+	};
+  
+  const delete_lecture = () => {
+    const params = new URL(location.href).searchParams;
+    const lecture = params.get('lecture');
+
+    fetch('/model/lecture/delete_lecture.php', {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify({lecture: lecture}),
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => console.log('error발생: ', error));
+  }
+</script>
