@@ -63,10 +63,10 @@
       </div> -->
     </div>
   </div>
-  <div class="lecture-btn after f-r">
-    <!-- <a href="#;" onclick="interest_lec_go();" class="btn-m-line"><i class="icon-favorites"></i>관심강의</a> -->
-    <button class="btn-m-line mt15">수정</button>
-    <button class="btn-m mt15" onclick="delete_lecture()">삭제</button>
+  <div class="box-btn t-r">
+    <a href="/admin/index.php?mode=lecture" class="btn-m-line">목록</a>
+    <button class="btn-m-line" onclick="update_lecture()">수정</button>
+    <button class="btn-m" onclick="delete_lecture()">삭제</button>
   </div>
 </div>
     
@@ -97,6 +97,7 @@
         $('#instructor_name').text(value.instructor_name);
         $('#learning_course_duration').text(value.learning_course_duration);
         $('#learning_difficulty').text(value.learning_difficulty);
+        $('#go_lecture_list').attr("href", "/admin/index.php?mode=lecture_update&lecture="+lecture);
       }
     })
     .catch(error => console.log('error발생: ', error));
@@ -105,6 +106,10 @@
   const delete_lecture = () => {
     const params = new URL(location.href).searchParams;
     const lecture = params.get('lecture');
+
+    if (confirm('정말 삭제하시겠습니까?') === false) {
+      return;
+    }
 
     fetch('/model/lecture/delete_lecture.php', {
       method: 'post',
@@ -116,7 +121,17 @@
     .then(res => res.json())
     .then(data => {
       console.log(data);
+      alert(data.message);
+			if (data.status) {
+				location.href='/admin/index.php?mode=lecture';
+			}
     })
     .catch(error => console.log('error발생: ', error));
+  }
+
+  const update_lecture = () => {
+    const params = new URL(location.href).searchParams;
+    const lecture = params.get('lecture');
+    location.href=`/admin/index.php?mode=lecture_update&lecture=${lecture}`
   }
 </script>

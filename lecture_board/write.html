@@ -27,11 +27,11 @@
 			<tr>
 				<th scope="col">강의</th>
 				<td>
-					<select class="input-sel" style="width:160px">
+					<select class="input-sel" id="category_select" onchange="get_lecture_name($(this).val())" style="width:160px">
 						<option value="">분류</option>
 					</select>
-					<select class="input-sel ml5" style="width:454px">
-						<option value="">강의명</option>
+					<select class="input-sel ml5" id="lecture_name_select" style="width:454px">
+					<select class="input-sel ml5" id="lecture_name_select" style="width:454px">
 					</select>
 				</td>
 			</tr>
@@ -106,3 +106,47 @@
 
 	
 </div>
+
+
+<script>
+	$(function() {
+		get_lecture_category();
+		get_lecture_name();
+	});
+
+	const get_lecture_category = () => { //카테고리 목록 조회
+		fetch('/model/lecture_category/get_lecture_category.php', {
+      method: 'get',
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      for( let value of data.lecture_category ){
+        $('#category_select').append(`<option value="${value.lecture_category_idx}">${value.categor_name}</option>`);
+      }
+    })
+    .catch(error => console.log('error발생: ', error));
+	}
+
+	const get_lecture_name = (category) => {
+		fetch('/model/lecture/get_lecture_name.php', {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify({category: category}),
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+			$('#lecture_name_select').empty();
+      for( let value of data.lecture ){
+				$('#lecture_name_select').append(`<option value="${value.lecture_category_idx}">${value.lecture_name}</option>`);
+        }
+    })
+    .catch(error => console.log('error발생: ', error));
+  };
+</script>
