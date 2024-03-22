@@ -3,9 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- include libraries(jQuery, bootstrap) -->
+  
+
   <title>Document</title>
 </head>
 <body>
-  <img src="/image/b215386ced2140f9f059f43a882a62bf.jpg" alt="">
+  
+  <form id="form_box">
+    <textarea name="content" id="summernote" value=""></textarea>
+    <input type="submit" value="저장">
+  </form>
+  
+<script>  
+  $(document).ready(function() {
+      $('#summernote').summernote({
+              height: 300,                 // set editor height
+              minHeight: null,             // set minimum height of editor
+              maxHeight: null,             // set maximum height of editor
+              focus: true                  // set focus to editable area after initializing summernote
+      });
+  });
+
+  $('#form_box').submit((event) => {
+    event.preventDefault();
+    console.log($("#summernote").val());
+  })
+
+</script>
 </body>
 </html>

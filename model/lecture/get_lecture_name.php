@@ -11,7 +11,7 @@
 
   }else { //db 연결성공
     $strQuery = "SELECT lecture_name, lecture_category_idx FROM lecture";
-    if (isset($decodedData['category'])) { 
+    if (isset($decodedData['category']) && strlen($decodedData['category']) != 0) { //$decodedData['category']에 값이 있고 빈무자열이 아니면 조건 추가
       $strQuery = $strQuery . " WHERE lecture_category_idx = '" . $decodedData['category'] . "'";
     }
     $strQuery = $strQuery." order by lecture_idx desc;";
